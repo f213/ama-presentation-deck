@@ -1,7 +1,9 @@
 <template>
   <section>
-    <h2>{{ question.name }}</h2>
-    {{ question.question }}
+    <blockquote class="question__quote">
+      {{ question.question }}
+    </blockquote>
+    <em class="question__author">{{ question.name }}</em>
   </section>
 </template>
 
@@ -12,3 +14,13 @@ export default {
   },
 };
 </script>
+<style>
+.question__quote {
+  text-align: left;
+  white-space: pre-line;
+}
+.question__author {
+  float: right;
+}
+
+</style>
