@@ -3,6 +3,8 @@
     <div class="reveal">
       <div class="slides">
         <IntroSlide />
+        <LinkSlide />
+        <PlanSlide />
         <QuestionSlide :key="idx" v-for="(question, idx) in questions" :question="question"/>
       </div>
     </div>
@@ -11,6 +13,9 @@
 
 <script>
 import IntroSlide from '@/components/IntroSlide.vue';
+import LinkSlide from '@/components/LinkSlide.vue';
+import PlanSlide from '@/components/PlanSlide.vue';
+
 import QuestionSlide from '@/components/QuestionSlide.vue';
 
 import { mapState, mapActions } from 'vuex';
@@ -20,6 +25,8 @@ const cdn = (what) => `https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/${
 export default {
   components: {
     IntroSlide,
+    LinkSlide,
+    PlanSlide,
     QuestionSlide,
   },
   head: {

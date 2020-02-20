@@ -1,6 +1,6 @@
 <template>
   <section>
     <h2>Федя Борщёв</h2>
-    задаём вопросы
+    Ask Me Anything
   </section>
 </template>
