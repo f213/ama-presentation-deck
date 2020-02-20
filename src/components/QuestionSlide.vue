@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2>{{ question.name }}</h2>
-    <em>{{ question.question }}</em>
+    {{ question.question }}
   </section>
 </template>
 

@@ -2,6 +2,7 @@
   <div id="app">
     <div class="reveal">
       <div class="slides">
+        <IntroSlide />
         <QuestionSlide :key="idx" v-for="(question, idx) in questions" :question="question"/>
       </div>
     </div>
@@ -9,21 +10,26 @@
 </template>
 
 <script>
+import IntroSlide from '@/components/IntroSlide.vue';
 import QuestionSlide from '@/components/QuestionSlide.vue';
 
 import { mapState, mapActions } from 'vuex';
 
+const cdn = (what) => `https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/${what}`;
+
 export default {
   components: {
+    IntroSlide,
     QuestionSlide,
   },
   head: {
     script: [
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js' },
+      { src: cdn('js/reveal.min.js') },
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.min.css' },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/solarized.min.css' },
+      { rel: 'stylesheet', href: cdn('css/reset.css') },
+      { rel: 'stylesheet', href: cdn('css/reveal.min.css') },
+      { rel: 'stylesheet', href: cdn('css/theme/black.min.css'), id: 'theme' },
     ],
   },
   computed: mapState({
@@ -42,7 +48,7 @@ export default {
         await this.GET_QUESTIONS();
         setTimeout(fetch, 1500); // constantly updating
       };
-      this.$consola.info('Fetching slides for the first time');
+      this.$consola.info('Fetching slides for the first time...');
       await fetch();
       this.$consola.info('Slides are fetched');
     },
@@ -50,7 +56,7 @@ export default {
       const doIt = () => {
         if ('Reveal' in window) {
           window.Reveal.initialize();
-          this.$consola.info('Reveal.js loaded');
+          this.$consola.info('Reveal.js is loaded');
         } else {
           setTimeout(doIt, 1000);
         }
@@ -60,6 +66,7 @@ export default {
   },
 };
 </script>
+
 <style>
 #app {
   height: 100vh;
