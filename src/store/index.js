@@ -1,15 +1,46 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import Airtable from 'airtable-plus';
+
+const airtable = new Airtable({
+  apiKey: process.env.VUE_APP_AIRTABLE_API_KEY,
+  baseID: process.env.VUE_APP_AIRTABLE_BASE,
+  tableName: process.env.VUE_APP_AIRTABLE_TABLE_NAME,
+});
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    questions: [],
   },
   mutations: {
+    ADD_QUESTION(state, question) {
+      const found = state.questions.findIndex((i) => i.id === question.id);
+      if (found !== -1) {
+        Vue.set(state.questions, found, question);
+      } else {
+        state.questions.push(question);
+      }
+    },
   },
   actions: {
-  },
-  modules: {
+    async GET_QUESTIONS({ state, commit }) {
+      /* eslint-disable-next-line global-require */
+      // const { questions } = require('@/test.json');
+      // questions.forEach((question) => commit('ADD_QUESTION', question));
+
+      const records = await airtable.read();
+      records.forEach((record) => {
+        if (!state.questions.find((question) => question.id === record.id)) {
+          const { id, fields } = record;
+          const { name, question } = fields;
+          if (name && question) {
+            commit('ADD_QUESTION', { id, name, question });
+          }
+        }
+      });
+    },
   },
 });
