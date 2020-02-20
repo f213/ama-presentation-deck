@@ -1,4 +1,6 @@
-# ama
+# AMA Presentation deck
+
+This is a simple presentation deck based on [Reveal.js](https://revealjs.com) and [airtable-plus](https://airtable-plus.js.org). The goal is to build a dynamic presentation with questions, submitted from the audience by the airtable form.
 
 ## Project setup
 ```
