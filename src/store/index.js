@@ -18,6 +18,9 @@ export default new Vuex.Store({
   mutations: {
     ADD_QUESTION(state, question) {
       const found = state.questions.findIndex((i) => i.id === question.id);
+
+      question.question = question.question.slice(0, 256);
+
       if (found !== -1) {
         Vue.set(state.questions, found, question);
       } else {
