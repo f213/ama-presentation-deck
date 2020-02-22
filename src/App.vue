@@ -52,7 +52,11 @@ export default {
     ]),
     async fetchSlides() {
       const fetch = async () => {
-        await this.GET_QUESTIONS();
+        try {
+          await this.GET_QUESTIONS();
+        } catch {
+          // fuck it
+        }
         setTimeout(fetch, 1500); // constantly updating
       };
       this.$consola.info('Fetching slides for the first time...');
