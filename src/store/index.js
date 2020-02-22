@@ -34,7 +34,7 @@ export default new Vuex.Store({
       // const { questions } = require('@/test.json');
       // questions.forEach((question) => commit('ADD_QUESTION', question));
 
-      const records = await airtable.read();
+      const records = await airtable.read({ view: 'Grid view' }); // the «Grid view» is the default view in the airtable
       records.forEach((record) => {
         const { id, fields } = record;
         const { name, question } = fields;
