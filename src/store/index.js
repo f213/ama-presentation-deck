@@ -29,19 +29,18 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async GET_QUESTIONS({ state, commit }) {
+    async GET_QUESTIONS({ commit }) {
       /* eslint-disable-next-line global-require */
       // const { questions } = require('@/test.json');
       // questions.forEach((question) => commit('ADD_QUESTION', question));
 
       const records = await airtable.read();
       records.forEach((record) => {
-        if (!state.questions.find((question) => question.id === record.id)) {
-          const { id, fields } = record;
-          const { name, question } = fields;
-          if (name && question) {
-            commit('ADD_QUESTION', { id, name, question });
-          }
+        const { id, fields } = record;
+        const { name, question } = fields;
+
+        if (name && question) {
+          commit('ADD_QUESTION', { id, name, question });
         }
       });
     },
